@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolHub - All-in-One Tool Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffbe0b;
+            --gray: #6c757d;
+            --card-bg: #ffffff;
+            --footer-bg: #2b2d42;
+        }
+
+        .dark-mode {
+            --primary: #4cc9f0;
+            --secondary: #4895ef;
+            --accent: #f72585;
+            --light: #121212;
+            --dark: #e6e6e6;
+            --card-bg: #1e1e1e;
+            --footer-bg: #0a0a0a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            transition: background 0.3s ease;
+        }
+
+        .dark-mode body {
+            background: linear-gradient(135deg, #0c0c0c 0%, #2d2d2d 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode header {
+            background: rgba(30, 30, 30, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            position: relative;
+            padding: 5px 0;
+            font-weight: 500;
+        }
+
+        .dark-mode nav ul li a {
+            color: var(--light);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--light);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .theme-toggle {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            padding: 80px 0 50px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: var(--gray);
+        }
+
+        .dark-mode .hero p {
+            color: #a8a8a8;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 16px 25px;
+            border-radius: 50px;
+            border: 2px solid var(--primary);
+            background: var(--card-bg);
+            color: var(--dark);
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .search-box input {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            box-shadow: 0 5px 20px rgba(67, 97, 238, 0.3);
+        }
+
+        .search-box button {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 0 20px;
+            height: 45px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .search-box button:hover {
+            background: var(--secondary);
+        }
+
+        .categories {
+            padding: 50px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .category-card {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .dark-mode .category-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .category-card h3 i {
+            margin-right: 12px;
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+
+        .tools-list {
+            list-style: none;
+        }
+
+        .tools-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dark-mode .tools-list li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .tools-list li:last-child {
+            border-bottom: none;
+        }
+
+        .tool-name {
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .tool-status {
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .tool-status.popular {
+            background: rgba(76, 201, 240, 0.2);
+            color: var(--success);
+        }
+
+        .tool-status.new {
+            background: rgba(247, 37, 133, 0.2);
+            color: var(--accent);
+        }
+
+        .tool-status.beta {
+            background: rgba(255, 190, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .tool-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .tool-link:hover {
+            color: var(--accent);
+        }
+
+        footer {
+            background: var(--footer-bg);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--success);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: #ccd6f6;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1.05rem;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a8b2d1;
+            font-size: 1rem;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            nav ul li {
+                margin-left: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                flex-direction: column;
+                padding: 20px 0;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            .dark-mode nav ul {
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 12px 0;
+                text-align: center;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .category-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 70px 0 40px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .category-card {
+                padding: 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-box input {
+                padding: 14px 20px;
+                font-size: 1rem;
+            }
+            
+            .search-box button {
+                height: 42px;
+                padding: 0 15px;
+            }
+        }
+
+        /* Animation effects */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .category-card {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .category-card:nth-child(1) { animation-delay: 0.1s; }
+        .category-card:nth-child(2) { animation-delay: 0.2s; }
+        .category-card:nth-child(3) { animation-delay: 0.3s; }
+        .category-card:nth-child(4) { animation-delay: 0.4s; }
+        .category-card:nth-child(5) { animation-delay: 0.5s; }
+        .category-card:nth-child(6) { animation-delay: 0.6s; }
+        .category-card:nth-child(7) { animation-delay: 0.7s; }
+        .category-card:nth-child(8) { animation-delay: 0.8s; }
+        .category-card:nth-child(9) { animation-delay: 0.9s; }
+
+        /* Demo tool implementation */
+        .tool-demo {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .tool-demo {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-demo h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .tool-demo h3 i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .dark-mode .input-group label {
+            color: var(--light);
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            background: var(--card-bg);
+            color: var(--dark);
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .dark-mode .input-group input, .dark-mode .input-group select {
+            border: 2px solid #444;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            font-weight: 500;
+            display: none;
+        }
+
+        .dark-mode .result {
+            background: rgba(67, 97, 238, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <i class="fas fa-tools"></i>
+                ToolHub
+            </a>
+            
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">Popular Tools</a></li>
+                    <li><a href="#">New Tools</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+                <button class="mobile-menu-btn" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>All The Tools You Need In One Place</h1>
+            <p>Discover hundreds of useful tools for everyday tasks, from image editing and health calculators to tax calculators and unit converters.</p>
+            
+            <div class="search-box">
+                <input type="text" placeholder="Search for tools...">
+                <button><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+    </section>
+    
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Tools Categories</h2>
+            
+            <div class="category-grid">
+                <!-- Category 1 -->
+                <div class="category-card">
+                    <h3><i class="fas fa-image"></i> Image Tools</h3>
+                    <ul class="tools-list">
+                        <li>
+                            <span class="tool-name">Image Resizer</span>
+                            <span class="tool-status popular">Popular</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Background Remover</span>
+                            <span class="tool-status popular">Popular</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Image Compressor</span>
+                            <span class="tool-status popular">Popular</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Format Converter</span>
+                            <span class="tool-status">New</span>
+                        </li>
+                        <li>
+                            <a href="#" class="tool-link">View all 15 tools →</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Category 2 -->
+                <div class="category-card">
+                    <h3><i class="fas fa-heartbeat"></i> Health Calculators</h3>
+                    <ul class="tools-list">
+                        <li>
+                            <span class="tool-name">BMI Calculator</span>
+                            <span class="tool-status popular">Popular</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Calorie Counter</span>
+                            <span class="tool-status popular">Popular</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Water Intake Calculator</span>
+                            <span class="tool-status">New</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Macro Calculator</span>
+                            <span class="tool-status">New</span>
+                        </li>
+                        <li>
+                            <a href="#" class="tool-link">View all 12 tools →</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Category 3 -->
+                <div class="category-card">
+                    <h3><i class="fas fa-calculator"></i> Financial Tools</h3>
+                    <ul class="tools-list">
+                        <li>
+                            <span class="tool-name">Tax Calculator</span>
+                            <span class="tool-status popular">Popular</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Loan Calculator</span>
+                            <span class="tool-status popular">Popular</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Currency Converter</span>
+                            <span class="tool-status">New</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Retirement Planner</span>
+                            <span class="tool-status">New</span>
+                        </li>
+                        <li>
+                            <a href="#" class="tool-link">View all 18 tools →</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Category 4 -->
+                <div class="category-card">
+                    <h3><i class="fas fa-ruler-combined"></i> Converters</h3>
+                    <ul class="tools-list">
+                        <li>
+                            <span class="tool-name">Unit Converter</span>
+                            <span class="tool-status popular">Popular</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Color Converter</span>
+                            <span class="tool-status">New</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Time Zone Converter</span>
+                            <span class="tool-status">New</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">File Converter</span>
+                            <span class="tool-status beta">Beta</span>
+                        </li>
+                        <li>
+                            <a href="#" class="tool-link">View all 10 tools →</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Category 5 -->
+                <div class="category-card">
+                    <h3><i class="fas fa-code"></i> Developer Tools</h3>
+                    <ul class="tools-list">
+                        <li>
+                            <span class="tool-name">JSON Formatter</span>
+                            <span class="tool-status popular">Popular</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Code Minifier</span>
+                            <span class="tool-status">New</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Regex Tester</span>
+                            <span class="tool-status">New</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">API Tester</span>
+                            <span class="tool-status beta">Beta</span>
+                        </li>
+                        <li>
+                            <a href="#" class="tool-link">View all 20 tools →</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Category 6 -->
+                <div class="category-card">
+                    <h3><i class="fas fa-font"></i> Text Tools</h3>
+                    <ul class="tools-list">
+                        <li>
+                            <span class="tool-name">Word Counter</span>
+                            <span class="tool-status popular">Popular</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Plagiarism Checker</span>
+                            <span class="tool-status popular">Popular</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Text Summarizer</span>
+                            <span class="tool-status">New</span>
+                        </li>
+                        <li>
+                            <span class="tool-name">Grammar Checker</span>
+                            <span class="tool-status">New</span>
+                        </li>
+                        <li>
+                            <a href="#" class="tool-link">View all 14 tools →</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Demo Tool Implementation -->
+            <div class="tool-demo">
+                <h3><i class="fas fa-calculator"></i> BMI Calculator</h3>
+                <div class="input-group">
+                    <label for="height">Height (cm)</label>
+                    <input type="number" id="height" placeholder="Enter your height">
+                </div>
+                <div class="input-group">
+                    <label for="weight">Weight (kg)</label>
+                    <input type="number" id="weight" placeholder="Enter your weight">
+                </div>
+                <button class="btn" id="calculate-bmi">Calculate BMI</button>
+                <div class="result" id="bmi-result">Your BMI: </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ToolHub</h3>
+                    <p>Your one-stop destination for all kinds of useful online tools. We're constantly adding new tools to make your life easier.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">Image Tools</a></li>
+                        <li><a href="#">Health Calculators</a></li>
+                        <li><a href="#">Financial Tools</a></li>
+                        <li><a href="#">Converters</a></li>
+                        <li><a href="#">Developer Tools</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Popular Tools</h3>
+                    <ul>
+                        <li><a href="#">Image Resizer</a></li>
+                        <li><a href="#">BMI Calculator</a></li>
+                        <li><a href="#">Tax Calculator</a></li>
+                        <li><a href="#">Unit Converter</a></li>
+                        <li><a href="#">Word Counter</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Submit a Tool</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 ToolHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('nav-menu');
+            const menuToggle = document.getElementById('menu-toggle');
+            
+            if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+        
+        // BMI Calculator functionality
+        document.getElementById('calculate-bmi').addEventListener('click', function() {
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            
+            if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+                alert('Please enter valid height and weight values.');
+                return;
+            }
+            
+            // Calculate BMI: weight (kg) / (height (m) * height (m))
+            const heightInMeters = height / 100;
+            const bmi = weight / (heightInMeters * heightInMeters);
+            const roundedBMI = bmi.toFixed(1);
+            
+            let category = '';
+            if (bmi < 18.5) {
+                category = 'Underweight';
+            } else if (bmi < 25) {
+                category = 'Normal weight';
+            } else if (bmi < 30) {
+                category = 'Overweight';
+            } else {
+                category = 'Obesity';
+            }
+            
+            const resultElement = document.getElementById('bmi-result');
+            resultElement.textContent = `Your BMI: ${roundedBMI} (${category})`;
+            resultElement.style.display = 'block';
+        });
+        
+        // Simulate loading more categories (in a real app, this would be an API call)
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('ToolHub website loaded successfully!');
+        });
+    </script>
+</body>
+</html>
